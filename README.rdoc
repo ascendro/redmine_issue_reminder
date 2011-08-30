@@ -1,3 +1,5 @@
+= issue_reminder
+
 REDMINE ISSUE REMINDER
 ----------------
 A Redmine plugin to manage reminder from the redmine interface.
