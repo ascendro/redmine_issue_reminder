@@ -1,0 +1,39 @@
+<div class="splitcontentleft">
+  <table class="list members">
+    <thead>
+      <tr>
+        <th>Query</th>
+        <th>Roles</th>
+        <th>Interval</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reminders.each do |reminder| %>
+        <tr>
+          <td><%= reminder.query.name %></td>
+          <td><%= reminder.roles.collect {|r| r.name}.join(',') %></td>
+          <td><%= reminder.interval %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="splitcontentright">
+  <% remote_form_for(@reminder, :url => {:action => :create}) do |f| %>
+    <fieldset>
+      <legend>New Reminder</legend>
+      <p>
+        <%= f.label l(:query) %>
+        <%= f.select :query_id, queries_for_options(@project.id) %>
+      </p>
+      <p>
+        <%= f.label l(:interval) %>
+        <%= f.select :interval, reminders_intervals_for_options, {},
+               {:onchange => remote_function(:url  => {:action => "update_interval_values"},
+                                                      :with => "'interval='+value")}  %>
+      </p>
+      <%= render :partial => 'interval_values', :object => Reminder.interval_values_for("daily") %>
+    </fieldset>
+  <% end %>
+</div>
