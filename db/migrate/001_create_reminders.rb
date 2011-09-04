@@ -1,6 +1,7 @@
 class CreateReminders < ActiveRecord::Migration
   def self.up
     create_table :reminders do |t|
+      t.column :project_id, :integer
       t.column :query_id, :integer
       t.column :interval, :string, :limit => 30
       t.column :interval_value, :integer

@@ -23,3 +23,5 @@ en:
   :friday: "Friday"
   :saturday: "Saturday"
   :every_weekly_format: "Every %s"
+  :add: "Add"
+  :roles: "Roles"

@@ -9,6 +9,7 @@ class Reminder < ActiveRecord::Base
   has_many :reminder_roles
   has_many :roles, :through => :reminder_roles
   belongs_to :query
+  belongs_to :project
 
   def self.intervals
     [:daily, :weekly, :monthly]

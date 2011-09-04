@@ -1,12 +1,28 @@
 class RemindersController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
-    @reminders = Reminder.find(:all)
+    @reminders = Reminder.find_all_by_project_id(@project)
     @reminder = Reminder.new
   end
 
   def create
-    
+    reminder = Reminder.new(params[:reminder])
+    reminder.interval_value = params[:interval_value].to_i
+    if reminder.save
+      Role.find_all_givable.each do |role|
+        if params[role.name.downcase]
+          rr = ReminderRole.new
+          rr.reminder = reminder
+          rr.role = role
+          rr.save
+        end
+      end
+      
+      flash[:notice] = "Reminder successfully created"
+    else
+      flash[:error] = "Reminder not created"
+    end
+    render(:update) {|page| page.call 'location.reload'}
   end
 
   def update
