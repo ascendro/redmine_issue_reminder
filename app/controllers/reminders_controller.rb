@@ -30,7 +30,11 @@ class RemindersController < ApplicationController
   end
 
   def destroy
-    
+    reminder = Reminder.find(params[:id])
+    if reminder
+      reminder.destroy
+    end
+    render(:update) {|page| page.call 'location.reload'}
   end
 
   def update_interval_values

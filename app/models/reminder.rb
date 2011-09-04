@@ -6,7 +6,7 @@ class Reminder < ActiveRecord::Base
   WEEKLY_INTERVAS = Date::DAYNAMES
   MONTHLY_INTERVALS = [1..31]
 
-  has_many :reminder_roles
+  has_many :reminder_roles, :dependent => :destroy
   has_many :roles, :through => :reminder_roles
   belongs_to :query
   belongs_to :project

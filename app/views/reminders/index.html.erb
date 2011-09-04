@@ -5,6 +5,7 @@
         <th>Query</th>
         <th>Roles</th>
         <th>Interval</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,13 @@
           <td><%= reminder.query.name %></td>
           <td><%= reminder.roles.collect {|r| r.name}.join(',') %></td>
           <td><%= Reminder.interval_value_display(reminder.interval,reminder.interval_value) %></td>
+          <td class="buttons">
+             <%= link_to_remote(l(:button_delete), { :url => {:controller => 'reminders', :action => 'destroy', :id => reminder},
+                                              :method => :post,
+                                              :confirm => l(:reminder_delete_confirmation)
+                                            }, :title => l(:button_delete),
+                                               :class => 'icon icon-del')  %>
+          </td>
         </tr>
       <% end %>
     </tbody>

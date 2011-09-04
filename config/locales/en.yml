@@ -25,3 +25,4 @@ en:
   :every_weekly_format: "Every %s"
   :add: "Add"
   :roles: "Roles"
+  :reminder_delete_confirmation: "Do you really want to delete this reminder?"
