@@ -1,0 +1,25 @@
+<% remote_form_for(@reminder, :url => {:action => :create}) do |f| %>
+  <fieldset>
+    <legend>New Reminder</legend>
+    <%= f.hidden_field :project_id, { :value => @project.id } %>
+    <p>
+      <%= f.label l(:query) %>
+      <%= f.select :query_id, queries_for_options(@project.id) %>
+    </p>
+    <p>
+      <%= f.label l(:interval) %>
+      <%= f.select :interval, reminders_intervals_for_options, {},
+          {:onchange => remote_function(:url  => {:action => "update_interval_values"},
+              :with => "'interval='+value")}  %>
+    </p>
+    <%= render :partial => 'interval_values', :object => Reminder.interval_values_for("daily") %>
+    <p>
+      <%= f.label l(:roles) %>
+      <% Role.find_all_givable.each do |role| %>
+        <%= check_box_tag(role.name.downcase, role.id) %>
+        <%= label_tag(role.name.downcase, role.name) %>
+      <% end %>
+    </p>
+    <%= f.submit l(:add) %>
+  </fieldset>
+<% end %>
