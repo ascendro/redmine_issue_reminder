@@ -22,11 +22,27 @@ class RemindersController < ApplicationController
     else
       flash[:error] = "Reminder not created"
     end
-    render(:update) {|page| page.call 'location.reload'}
+    render(:update) { |page| page.call 'location.reload' }
   end
 
   def update
-    
+    reminder = Reminder.find(params[:id])
+    if request.put? && reminder.update_attributes(params[:reminder])
+      reminder.interval_value = params[:interval_value]
+      Role.find_all_givable.each do |role|
+        if reminder.roles.include?(role) && params[role.name.downcase].nil?
+          reminder.reminder_roles.find_by_role_id(role.id).destroy
+        elsif params[role.name.downcase] && !reminder.roles.include?(role)
+          rr = ReminderRole.new
+          rr.reminder = reminder
+          rr.role = role
+          rr.save
+        end
+      end
+      
+      reminder.save
+    end
+    render(:update) { |page| page.call 'location.reload' }
   end
 
   def destroy
@@ -39,10 +55,16 @@ class RemindersController < ApplicationController
 
   def update_interval_values
     vals = Reminder.interval_values_for(params[:interval])
+    begin
+      reminder = Reminder.find(params[:reminder_id])
+    rescue ActiveRecord::RecordNotFound
+      reminder = Reminder.new
+    end
+    
     render :update do |page|
-      page.replace_html "interval_values",
+      page.replace_html "interval_values-#{params[:reminder_id]}",
       :partial => 'interval_values',
-      :object => Reminder.interval_values_for(params[:interval])
+      :locals => { :possible_values => vals, :selected_value => nil, :reminder => reminder}
     end
   end
 end

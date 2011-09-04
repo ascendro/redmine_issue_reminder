@@ -24,5 +24,6 @@ en:
   :saturday: "Saturday"
   :every_weekly_format: "Every %s"
   :add: "Add"
+  :save: "Save"
   :roles: "Roles"
   :reminder_delete_confirmation: "Do you really want to delete this reminder?"
