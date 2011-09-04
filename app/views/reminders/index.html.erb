@@ -12,7 +12,7 @@
         <tr>
           <td><%= reminder.query.name %></td>
           <td><%= reminder.roles.collect {|r| r.name}.join(',') %></td>
-          <td><%= reminder.interval %></td>
+          <td><%= Reminder.interval_value_display(reminder.interval,reminder.interval_value) %></td>
         </tr>
       <% end %>
     </tbody>
