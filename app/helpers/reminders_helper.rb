@@ -1,6 +1,6 @@
 module RemindersHelper
   def queries_for_options(project_id)
-    (Query.find_all_by_project_id(project_id) | Query.find_all_by_is_public(true)).
+    (Query.find(:all, :conditions => ['is_public = ? AND (project_id = ? OR project_id is null)', true, project_id])).
       collect {|q| [q.name, q.id]}
   end
 
