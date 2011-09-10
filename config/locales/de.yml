@@ -1,5 +1,5 @@
-# English strings go here for Rails i18n
-en:
+# German strings go here for Rails i18n
+de:
   :reminder_settings: "Erinnerungs Einstellungen"
   :daily: "Täglich"
   :weekly: "Wöchentlich"
