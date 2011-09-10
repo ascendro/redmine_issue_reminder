@@ -13,9 +13,6 @@ namespace :reminder do
     end
 
     mail_data.each do |user, queries_data|
-      queries_data.each do |data|
-        puts "#{user.name}: #{data[0].name}, #{data[1].name}"
-      end
       ReminderMailer.deliver_issues_reminder(user, queries_data)
     end
   end
