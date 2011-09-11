@@ -2,7 +2,6 @@
 en:
   :issues_reminder: "Issues Reminder"
   :reminder_settings: "Reminder settings"
-  :new_reminder: "New Reminder"
   :daily: "Daily"
   :weekly: "Weekly"
   :monthly: "Monthly"
@@ -29,3 +28,9 @@ en:
   :save: "Save"
   :roles: "Roles"
   :reminder_delete_confirmation: "Do you really want to delete this reminder?"
+  :default_email_subject: "Redmine Issue Reminder"
+  :permission_view_issue_reminder: "View issue reminder"
+  :reminder_created: "Reminder successfully created"
+  :reminder_not_created: "Reminder not created"
+  :mail_subject: "Mail Subject"
+  :value: "Value"

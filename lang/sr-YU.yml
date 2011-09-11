@@ -29,3 +29,9 @@ en:
   :save: "Snimi"
   :roles: "Uloge"
   :reminder_delete_confirmation: "Da li ste sigurni da želite da obrišete ovaj potsetnik?"
+  :default_email_subject: "Redmin potsetnik zadataka"
+  :permission_view_issue_reminder: "Vidljiv potsetnik zadataka"
+  :reminder_created: "Potsetnik uspešno kreiran"
+  :reminder_not_created: "Potsetnik nije kreiran"
+  :mail_subject: "Naslov poruke"
+  :value: "Vrednost:
