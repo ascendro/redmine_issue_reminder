@@ -1,6 +1,8 @@
 class RemindersController < ApplicationController
+  unloadable
+
+  before_filter :find_project, :authorize, :only => [:index, :create, :update, :destroy]
   def index
-    @project = Project.find(params[:project_id])
     @reminders = Reminder.find_all_by_project_id(@project)
     @reminder = Reminder.new
   end
@@ -66,5 +68,11 @@ class RemindersController < ApplicationController
       :partial => 'interval_values',
       :locals => { :possible_values => vals, :selected_value => nil, :reminder => reminder}
     end
+  end
+
+  private
+
+  def find_project
+    @project = Project.find(params[:project_id])
   end
 end
