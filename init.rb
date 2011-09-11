@@ -15,7 +15,7 @@ Redmine::Plugin.register :redmine_issue_reminder do
 
   permission :view_issue_reminder, { :reminders => :index }
 
-  settings :default => { 'email_subject' => "Redmine Issue Reminder" }
+  settings :default => { 'email_subject' => :default_email_subject }
   
   project_module :issue_reminder do
     permission :view_issue_reminder, :reminders => :index
@@ -24,7 +24,7 @@ Redmine::Plugin.register :redmine_issue_reminder do
   menu :project_menu,
     :issue_reminder,
   { :controller => "reminders", :action => "index" },
-    :caption => "Issues Reminder",
+    :caption => :caption,
     :last => true,
     :param => :project_id
 end

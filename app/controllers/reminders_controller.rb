@@ -18,9 +18,9 @@ class RemindersController < ApplicationController
         end
       end
       
-      flash[:notice] = "Reminder successfully created"
+      flash[:notice] = :reminder_created
     else
-      flash[:error] = "Reminder not created"
+      flash[:error] = :reminder_not_created
     end
     render(:update) { |page| page.call 'location.reload' }
   end
