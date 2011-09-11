@@ -33,3 +33,4 @@ en:
   :reminder_created: "Reminder successfully created"
   :reminder_not_created: "Reminder not created"
   :mail_subject: "Mail Subject"
+  :value: "Value"
