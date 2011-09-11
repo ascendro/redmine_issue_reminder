@@ -1,10 +1,11 @@
+<h2><%= l(:caption) %></h2>
 <div class="splitcontentleft">
   <table class="list members">
     <thead>
       <tr>
-        <th>Query</th>
-        <th>Roles</th>
-        <th>Interval</th>
+        <th><%= l(:query) %></th>
+        <th><%= l(:roles) %></th>
+        <th><%= l(:interval) %></th>
         <th></th>
       </tr>
     </thead>
@@ -26,7 +27,9 @@
           </td>
         </tr>
         <tr id="reminder-<%= reminder.id %>-edit" style="display:none">
-          <td colspan="3"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project } %></td>
+		  <td>&nbsp;</td>
+          <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project } %></td>
+		  <td>&nbsp;</td>
         </tr>
       <% end %>
     </tbody>
@@ -35,7 +38,7 @@
 
 <div class="splitcontentright">
   <fieldset>
-    <legend>New Reminder</legend>
+    <legend><%= l(:new_reminder) %></legend>
     <%= render :partial => 'form', :locals => { :reminder => @reminder, :project => @project } %>
   </fieldset
 </div>
