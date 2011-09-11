@@ -1,6 +1,8 @@
 # English strings go here for Rails i18n
 en:
+  :issues_reminder: "Issues Reminder"
   :reminder_settings: "Reminder settings"
+  :new_reminder: "New Reminder"
   :daily: "Daily"
   :weekly: "Weekly"
   :monthly: "Monthly"
