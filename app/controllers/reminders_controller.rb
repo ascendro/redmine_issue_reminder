@@ -1,7 +1,9 @@
 class RemindersController < ApplicationController
   unloadable
 
-  before_filter :find_project, :authorize, :only => [:index, :create, :update, :destroy]
+  before_filter :find_project
+  before_filter :authorize, :only => :index
+  
   def index
     @reminders = Reminder.find_all_by_project_id(@project)
     @reminder = Reminder.new
@@ -73,6 +75,10 @@ class RemindersController < ApplicationController
   private
 
   def find_project
-    @project = Project.find(params[:project_id])
+    begin
+      @project = Project.find(params[:project_id])
+    rescue ActiveRecord::RecordNotFound
+      @project = Project.find(params[:reminder][:project_id]) if params[:reminder]
+    end
   end
 end

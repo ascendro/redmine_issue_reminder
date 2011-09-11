@@ -13,18 +13,21 @@ Redmine::Plugin.register :redmine_issue_reminder do
   url 'https://github.com/ascendro/redmine_issue_reminder'
   author_url 'http://www.ascendro.ro/'
 
-  permission :view_issue_reminder, { :reminders => :index }
+  permission :view_issue_reminder, :reminders => :index
 
-  settings :default => { 'email_subject' => :default_email_subject }
+  settings( :default => { 'email_subject' => :default_email_subject},
+            :partial => 'reminder_settings/issue_reminder_settings')
   
   project_module :issue_reminder do
     permission :view_issue_reminder, :reminders => :index
   end
 
+  if_proc = Proc.new{|project| puts project; project.enabled_module_names.include?('issue_reminder')}
   menu :project_menu,
     :issue_reminder,
   { :controller => "reminders", :action => "index" },
     :caption => :caption,
     :last => true,
-    :param => :project_id
+    :param => :project_id,
+    :if => if_proc
 end

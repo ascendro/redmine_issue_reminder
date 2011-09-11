@@ -10,7 +10,7 @@ class ReminderMailer < ActionMailer::Base
     recipients user.mail
     from Setting.mail_from
     content_type "text/html"
-    subject "Issues Reminder Mail"
+    subject Setting.plugin_redmine_issue_reminder['issue_reminder_mail_subject'] || "Issue Reminder"
     body :queries_data => queries_data
   end
 end
