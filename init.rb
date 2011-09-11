@@ -22,7 +22,7 @@ Redmine::Plugin.register :redmine_issue_reminder do
     permission :view_issue_reminder, :reminders => :index
   end
 
-  if_proc = Proc.new{|project| puts project; project.enabled_module_names.include?('issue_reminder')}
+  if_proc = Proc.new{|project| project.enabled_module_names.include?('issue_reminder')}
   menu :project_menu,
     :issue_reminder,
   { :controller => "reminders", :action => "index" },
