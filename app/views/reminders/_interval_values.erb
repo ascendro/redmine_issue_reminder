@@ -1,4 +1,4 @@
 <div id="interval_values-<%= reminder.new_record? ? 'new' : reminder.id %>">
-  <%= label(:interval, :value) %>
+  <%= label(:interval, :value) %>:
   <%= select_tag(:interval_value, options_for_select(possible_values, selected_value)) %>
 </div>
