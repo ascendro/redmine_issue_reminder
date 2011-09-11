@@ -8,7 +8,7 @@ namespace :reminder do
           role.members.each do |member|
             mail_data[member.user] = [] if mail_data[member.user].nil?
             mail_data[member.user] << [rem.project, rem.query] unless mail_data[member.user].include? [rem.project, rem.query]
-            rem.executed_at = Time.today
+            rem.executed_at = Time.now
             rem.save
           end
         end
