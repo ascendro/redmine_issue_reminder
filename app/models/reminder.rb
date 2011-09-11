@@ -33,7 +33,7 @@ class Reminder < ActiveRecord::Base
   end
 
   def self.interval_values_for(interval)
-    case interval.downcase
+    case interval.to_s.downcase
     when("daily")
       daily_intervals.each_with_index.collect {|val,idx| [interval_value_display("daily", val), idx]}
     when("weekly")

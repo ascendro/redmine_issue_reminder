@@ -11,7 +11,7 @@
               :with => "'interval='+value +'&reminder_id=#{reminder.new_record? ? 'new' : reminder.id}'")}  %>
     </p>
     <%= render :partial => 'interval_values',
-               :locals => { :possible_values => Reminder.interval_values_for(reminder.new_record? ? l(:daily) : reminder.interval),
+               :locals => { :possible_values => Reminder.interval_values_for(reminder.new_record? ? :daily : reminder.interval),
                             :selected_value => reminder.interval_value,
                             :reminder => reminder } %>
     <p>
