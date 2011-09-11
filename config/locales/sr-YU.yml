@@ -29,3 +29,4 @@ en:
   :save: "Snimi"
   :roles: "Uloge"
   :reminder_delete_confirmation: "Da li ste sigurni da želite da obrišete ovaj potsetnik?"
+  :permission_view_issue_reminder: "Vidljiv potsetnik zadataka"

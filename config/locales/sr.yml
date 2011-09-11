@@ -29,3 +29,4 @@ en:
   :save: "Сними"
   :roles: "Улоге"
   :reminder_delete_confirmation: "Да ли сте сигурни да желите да обришете овј потсетник?"
+  :permission_view_issue_reminder: "Видљив потсетник задатака"
