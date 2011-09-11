@@ -5,7 +5,7 @@ namespace :reminder do
     Reminder.all.select {|rem| rem.execute?}.sort{|l,r| l.project_id <=> r.project_id}.each do |rem|
       if rem.project.enabled_module_names.include?('issue_reminder')
         rem.roles.each do |role|
-          role.members.each do |member|
+          role.members.select {|m| m.project_id == rem.project_id}.each do |member|
             mail_data[member.user] = [] if mail_data[member.user].nil?
             mail_data[member.user] << [rem.project, rem.query] unless mail_data[member.user].include? [rem.project, rem.query]
             rem.executed_at = Time.now
