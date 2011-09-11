@@ -2,7 +2,6 @@
 en:
   :issues_reminder: "Потсетник задатака"
   :reminder_settings: "Подешавања потсетника"
-  :new_reminder: "Нови потсетник"
   :daily: "Дневно"
   :weekly: "Недељно"
   :monthly: "Месечно"
@@ -29,4 +28,8 @@ en:
   :save: "Сними"
   :roles: "Улоге"
   :reminder_delete_confirmation: "Да ли сте сигурни да желите да обришете овј потсетник?"
+  :default_email_subject: "Редмин потсетник задатака"
   :permission_view_issue_reminder: "Видљив потсетник задатака"
+  :reminder_created: "Потсетник успешно креиран"
+  :reminder_not_created: "Потсетник није креиран"
+  :mail_subject: "Наслов поруке"

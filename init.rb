@@ -26,7 +26,7 @@ Redmine::Plugin.register :redmine_issue_reminder do
   menu :project_menu,
     :issue_reminder,
   { :controller => "reminders", :action => "index" },
-    :caption => :caption,
+    :caption => :issues_reminder,
     :last => true,
     :param => :project_id,
     :if => if_proc
