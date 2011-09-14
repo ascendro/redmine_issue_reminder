@@ -11,6 +11,8 @@ class Reminder < ActiveRecord::Base
   belongs_to :query
   belongs_to :project
 
+  validates_presence_of :query_id
+
   def self.intervals
     [:daily, :weekly, :monthly]
   end
