@@ -5,7 +5,16 @@ class RemindersController < ApplicationController
   before_filter :authorize, :only => :index
   
   def index
+    needs_refresh = false
     @reminders = Reminder.find_all_by_project_id(@project)
+    @reminders.each do |reminder|
+      if reminder.query.nil?
+        reminder.destroy
+        needs_refresh = true
+      end
+    end
+    @reminders = Reminder.find_all_by_project_id(@project) if needs_refresh
+    
     @reminder = Reminder.new
   end
 
