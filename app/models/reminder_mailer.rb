@@ -5,8 +5,10 @@ class ReminderMailer < ActionMailer::Base
   include Redmine::I18n
   
   def issues_reminder(user, queries_data)
+	User.current = user  
     default_url_options[:host] = Setting.host_name
     default_url_options[:protocol] = "http"
+	set_language_if_valid user.language
     recipients user.mail
     from Setting.mail_from
     content_type "text/html"

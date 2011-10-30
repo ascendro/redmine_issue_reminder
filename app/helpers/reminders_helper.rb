@@ -33,7 +33,7 @@ module RemindersHelper
     when 'Project'
       link_to value.name, project_url(value)
     when 'Version'
-      link_to(h(value), version_url(value))
+      h(value)
     when 'TrueClass'
       l(:general_text_Yes)
     when 'FalseClass'
