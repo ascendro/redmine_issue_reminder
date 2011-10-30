@@ -33,7 +33,11 @@ module RemindersHelper
     when 'Project'
       link_to value.name, project_url(value)
     when 'Version'
-      h(value)
+      # Turn off link to version temporarly since
+      # routes are not correct in the Redmine
+      # version 1.2.1
+      # link_to(h(value), version_url(value))
+      h(value.name)
     when 'TrueClass'
       l(:general_text_Yes)
     when 'FalseClass'
