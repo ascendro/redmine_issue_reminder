@@ -10,7 +10,7 @@ Following intervals are possible:
  - Weekly (Selecting weekday)
  - Monthly (Selecting day of the month)
 
-## Installation
+## Installation - Linux (Tested on Ubuntu by Me)
 
 Download the sources and put them to your vendor/plugins folder.
 
@@ -35,6 +35,27 @@ Run Redmine and have a fun!
 The reminder functionality can be activated in each project as module and can be configured through the project menu entry "Reminder Settings".
 A special right needs to be configured in order to allow project member to edit reminder.
 
+## Installation - Windows (Tested on WinXP by Steven Wong)
+
+Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
+ 
+ 1. Write a bat file such as these
+
+ ########################################
+ 
+ echo on
+ 
+ cd {REDMINE_ROOT}
+ 
+ rake reminder:exec RAILS_ENV="production"
+ 
+ ########################################
+ 
+ 2. config a schedule just follow this
+ http://www.iopus.com/guides/winscheduler.htm
+ 
+ 3. then start the redmine server.
+ 
 ## Troubleshouting
 
 ### How can i customize the queries?
