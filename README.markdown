@@ -67,6 +67,17 @@ http://www.redmine.org/projects/redmine/wiki/RedmineIssueList#Custom-queries
 
 Add permission to Your user.
 
+### The issue reminder doesn't send mails
+
+We use redmine internal mail send functions, therefore the outgoing email settings 
+has to be set in config/emai.yml or config/configuration.yml
+
+### I can not use the windows scheduler (WinXP related)
+
+You need to have a user password set for your windows user in order to use the windows scheduler.
+
+(See also here: http://technet.microsoft.com/en-us/library/cc785125(WS.10).aspx )
+
 ## Translations
 
 - de by Michael Kling
