@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% data[1].issues.each do |issue| %>
+    <% data[1].issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version]).each do |issue| %>
       <tr>
         <% data[1].columns.each do |column| %>
           <%= content_tag 'td', content_for_column(column, issue) %>
