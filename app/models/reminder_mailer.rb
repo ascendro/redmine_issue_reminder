@@ -4,6 +4,12 @@ class ReminderMailer < ActionMailer::Base
   helper :reminders
   include Redmine::I18n
   
+  def self.default_url_options
+    h = Setting.host_name
+    h = h.to_s.gsub(%r{\/.*$}, '') unless Redmine::Utils.relative_url_root.blank?
+    { :host => h, :protocol => Setting.protocol }
+  end
+  
   def issues_reminder(user, queries_data)
 	User.current = user  
     default_url_options[:host] = Setting.host_name
