@@ -37,11 +37,11 @@ class Reminder < ActiveRecord::Base
   def self.interval_values_for(interval)
     case interval.to_s.downcase
     when("daily")
-      daily_intervals.each_with_index.collect {|val,idx| [interval_value_display("daily", val), idx]}
+      daily_intervals.enum_for(:each_with_index).collect {|val,idx| [interval_value_display("daily", val), idx]}
     when("weekly")
-      weekly_intervals.each_with_index.collect {|val,idx| [interval_value_display("weekly", val), idx]}
+      weekly_intervals.enum_for(:each_with_index).collect {|val,idx| [interval_value_display("weekly", val), idx]}
     when("monthly")
-      monthly_intervals.each.collect {|val| [interval_value_display("monthly", val), val]}
+      monthly_intervals.enum_for(:each).collect {|val| [interval_value_display("monthly", val), val]}
     else
       []
     end
