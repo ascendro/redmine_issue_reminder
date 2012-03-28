@@ -6,6 +6,9 @@ namespace :reminder do
       if rem.project.enabled_module_names.include?('issue_reminder') && rem.query
         rem.roles.each do |role|
           role.members.select {|m| m.project_id == rem.project_id}.each do |member|
+            if (member.user == nil) then 
+                next
+            end
             mail_data[member.user] = [] if mail_data[member.user].nil?
             mail_data[member.user] << [rem.project, rem.query] unless mail_data[member.user].include? [rem.project, rem.query]
             rem.executed_at = Time.now
