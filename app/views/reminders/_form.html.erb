@@ -1,4 +1,4 @@
-<% remote_form_for(reminder, :url => {:action => (reminder.new_record? ? :create : :update), :id => reminder}) do |f| %>
+<%= remote_form_for(reminder, :url => {:action => (reminder.new_record? ? :create : :update), :id => reminder}) do |f| %>
   <%= f.hidden_field :project_id, { :value => project.id } %>
   <p>
     <%= f.label l(:query) %>:
