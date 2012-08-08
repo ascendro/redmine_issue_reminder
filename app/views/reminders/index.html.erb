@@ -18,9 +18,10 @@
           <td class="buttons">
             <%= link_to_function l(:button_edit),
                                  "$('reminder-#{reminder.id}-edit').show(); return false;",
-                                 :class => 'icon icon-edit' %>
+                                 :class => 'icon icon-edit' 
+	    %>
              <%= link_to_remote(l(:button_delete), { :url => {:controller => 'reminders', :action => 'destroy', :id => reminder},
-                                              :method => :post,
+                                              :method => :delete,
                                               :confirm => l(:reminder_delete_confirmation)
                                             }, :title => l(:button_delete),
                                                :class => 'icon icon-del')  %>
@@ -28,7 +29,7 @@
         </tr>
         <tr id="reminder-<%= reminder.id %>-edit" style="display:none">
 		      <td>&nbsp;</td>
-          <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project } %></td>
+          <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project, :action => :update } %></td>
 		      <td>&nbsp;</td>
         </tr>
       <% end %>

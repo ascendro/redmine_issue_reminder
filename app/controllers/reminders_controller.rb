@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
 
   before_filter :find_project
   before_filter :authorize, :only => :index
-  
+
   def index
     needs_refresh = false
     @reminders = Reminder.find_all_by_project_id(@project)
@@ -31,9 +31,9 @@ class RemindersController < ApplicationController
         end
       end
       
-      flash[:notice] = :reminder_created
+      flash[:notice] = t :reminder_created
     else
-      flash[:error] = :reminder_not_created
+      flash[:error] = t :reminder_not_created #"reminder_not_created".html_safe
     end
     render(:update) { |page| page.call 'location.reload' }
   end
