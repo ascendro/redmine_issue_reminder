@@ -1,4 +1,0 @@
-ActionController::Routing::Routes.draw do |map|
-map.connect '/issue_reminder/index', :controller => 'issue_reminder', :action => 'index'
-#map.connect '/rt_import/match', :controller => 'issue_reminder', :action => 'import'
-end
