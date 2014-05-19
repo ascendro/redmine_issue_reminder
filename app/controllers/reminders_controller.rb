@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
 
   before_filter :find_project
   before_filter :authorize, :only => :index
-  
+
   def index
     needs_refresh = false
     @reminders = Reminder.find_all_by_project_id(@project)

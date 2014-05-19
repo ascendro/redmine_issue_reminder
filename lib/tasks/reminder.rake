@@ -17,9 +17,9 @@ namespace :reminder do
         end
       end
     end
-
-    mail_data.each do |user, queries_data|	
-      ReminderMailer.deliver_issues_reminder(user, queries_data)
+    
+    mail_data.each do |user, queries_data|
+      ReminderMailer.issues_reminder(user, queries_data).deliver
     end
   end
 end
