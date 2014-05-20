@@ -20,11 +20,10 @@
                                  "$('reminder-#{reminder.id}-edit').show(); return false;",
                                  :class => 'icon icon-edit' 
 	    %>
-            <%= link_to(l(:button_delete), { :url => {:controller => 'reminders', :action => 'destroy', :id => reminder},
-                                              :method => :delete,
-                                              :confirm => l(:reminder_delete_confirmation)
-                                            }, :title => l(:button_delete),
-                                               :class => 'icon icon-del')  %>
+        <%= link_to l(:button_delete), 
+            {:controller => 'reminders', :action => :destroy, :id => reminder},
+            {:confirm => l(:reminder_delete_confirmation), :method => :delete, :remote => true, :title => l(:button_delete), :class => 'icon icon-del'}
+        %>
           </td>
         </tr>
         <tr id="reminder-<%= reminder.id %>-edit" style="display:none">
