@@ -25,7 +25,9 @@
         </tr>
         <tr id="reminder-<%= reminder.id %>-edit" style="display:none">
             <td>&nbsp;</td>
-            <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project, :action => :update } %></td>
+            <td class="description" colspan="2">
+                <%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project, :action => :update } %>
+            </td>
             <td>&nbsp;</td>
         </tr>
     <% end %>
