@@ -10,12 +10,16 @@ Following intervals are possible:
  - Weekly (Selecting weekday)
  - Monthly (Selecting day of the month)
 
-## Installation - Linux (Tested on Ubuntu by Me)
+## Installation - Linux
 
 Download the sources and put them to your vendor/plugins folder.
 
-    $ cd {REDMINE_ROOT}
-    $ git clone git://github.com/ascendro/redmine_issue_reminder.git vendor/plugins/redmine_issue_reminder
+    $ cd {REDMINE_ROOT}/plugins
+    $ git clone https://github.com/Hopebaytech/redmine_issue_reminder.git
+
+Install required gem for plugin
+
+    $ bundle install
 
 Migrate database.
 
@@ -25,7 +29,7 @@ Migrate database.
 
 For the periodical transmission a daily cron job has to be created:
       
-    $sudo crontab -e
+    $ sudo crontab -e
     0 6 * * * cd {REDMINE_ROOT} && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
     
 Restart Redmine
@@ -35,7 +39,7 @@ Run Redmine and have a fun!
 The reminder functionality can be activated in each project as module and can be configured through the project menu entry "Reminder Settings".
 A special right needs to be configured in order to allow project member to edit reminder.
 
-## Installation - Windows (Tested on WinXP by Steven Wong)
+## Installation - Windows
 
 Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
  
@@ -88,6 +92,10 @@ You need to have a user password set for your windows user in order to use the w
 Thanks for the contribution. 
 
 ## Changelog
+
+### 2014/05
+
+ - Fix compatibility with Redmine 2.5.1
 
 ### 0.0.1
 
