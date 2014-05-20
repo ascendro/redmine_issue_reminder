@@ -10,28 +10,25 @@
       </tr>
     </thead>
     <tbody>
-      <% @reminders.each do |reminder| %>
+    <% @reminders.each do |reminder| %>
         <tr>
-          <td><%= link_to(h(reminder.query.name), :controller => 'queries', :action => 'edit', :id => reminder.query) %></td>
-          <td><%= reminder.roles.collect {|r| r.name}.join(',') %></td>
-          <td><%= Reminder.interval_value_display(reminder.interval,reminder.interval_value) %></td>
-          <td class="buttons">
-            <%= link_to_function l(:button_edit),
-                                 "$('reminder-#{reminder.id}-edit').show(); return false;",
-                                 :class => 'icon icon-edit' 
-	    %>
-        <%= link_to l(:button_delete), 
-            {:controller => 'reminders', :action => :destroy, :id => reminder},
-            {:confirm => l(:reminder_delete_confirmation), :method => :delete, :remote => true, :title => l(:button_delete), :class => 'icon icon-del'}
-        %>
-          </td>
+            <td><%= link_to(h(reminder.query.name), :controller => 'queries', :action => 'edit', :id => reminder.query) %></td>
+            <td><%= reminder.roles.collect {|r| r.name}.join(',') %></td>
+            <td><%= Reminder.interval_value_display(reminder.interval,reminder.interval_value) %></td>
+            <td class="buttons">
+                <%= link_to_function l(:button_edit), "$('#reminder-#{reminder.id}-edit').show()", :class => 'icon icon-edit' %>
+                <%= link_to l(:button_delete),
+                    {:controller => 'reminders', :action => :destroy, :id => reminder},
+                    {:confirm => l(:reminder_delete_confirmation), :method => :delete, :remote => true,
+                     :title => l(:button_delete), :class => 'icon icon-del'} %>
+            </td>
         </tr>
         <tr id="reminder-<%= reminder.id %>-edit" style="display:none">
-		      <td>&nbsp;</td>
-          <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project, :action => :update } %></td>
-		      <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2"><%= render :partial => 'form', :locals => { :reminder => reminder, :project => @project, :action => :update } %></td>
+            <td>&nbsp;</td>
         </tr>
-      <% end %>
+    <% end %>
     </tbody>
   </table>
 </div>
