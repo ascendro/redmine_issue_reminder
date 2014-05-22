@@ -1,6 +1,8 @@
 module RemindersHelper
   def queries_for_options(project_id)
-    (Query.find(:all, :conditions => ['visibility = ? AND (project_id = ? OR project_id is null)', 2, project_id])).
+    # Project specific queries and global queries
+    IssueQuery.visible.
+      where(project_id.nil? ? ["project_id IS NULL"] : ["project_id IS NULL OR project_id = ?", project_id]).
       collect {|q| [q.name, q.id]}
   end
 
