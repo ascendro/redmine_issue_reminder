@@ -17,12 +17,12 @@
                             :reminder => reminder } %>
     <p>
       <%= f.label l(:roles) %>:<br />
-	  <p>
+      <p>
       <% Role.find_all_givable.each do |role| %>
         <%= check_box_tag(role.name.downcase, role.id, reminder.roles.include?(role)) %>
         <%= label_tag(role.name.downcase, role.name) %><br />
       <% end %>
-	  </p>
+      </p>
     </p>
     <%= f.submit reminder.new_record? ? l(:add) : l(:save) %>
 
