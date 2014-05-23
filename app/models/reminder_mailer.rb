@@ -1,29 +1,37 @@
 class ReminderMailer < ActionMailer::Base
   helper :application
-  helper :queries
   helper :reminders
   include Redmine::I18n
 
-  def self.default_url_options
-    h = Setting.host_name
-    h = h.to_s.gsub(%r{\/.*$}, '') unless Redmine::Utils.relative_url_root.blank?
-    { :host => h, :protocol => Setting.protocol }
+  # Fixed: reminder mails are not sent when delivery_method is :async_smtp (#5058).
+  def self.with_synched_deliveries(&block)
+    saved_method = ActionMailer::Base.delivery_method
+    if m = saved_method.to_s.match(%r{^async_(.+)$})
+      ActionMailer::Base.delivery_method = m[1].to_sym
+    end
+    yield
+  ensure
+    ActionMailer::Base.delivery_method = saved_method
   end
-  
+
   def issues_reminder(user, queries_data)
-	User.current = user  
+    @user = user
+    @queries_data = queries_data
+    User.current = user  
+    puts "((" + user.mail + "))"
+
     default_url_options[:host] = Setting.host_name
-    default_url_options[:protocol] = "http"
-	set_language_if_valid user.language
-   # recipients user.mail
-   # from Setting.mail_from
-    mail(:to => user.mail,
-         :from => Setting.mail_from,
-         :content_type => "text/html",
-         :subject => Setting.plugin_redmine_issue_reminder['issue_reminder_mail_subject'] || "Issue Reminder",
-         :template_path => 'plugins/redmine_issue_reminder\
-/app/views/reminder_mailer',
-         :template_name => 'issues_reminder',
-         :body => queries_data)
-   end
+    headers['X-Mailer'] = 'Redmine'
+    headers['X-Redmine-Host'] = Setting.host_name
+    headers['X-Redmine-Site'] = Setting.app_title
+    headers['X-Auto-Response-Suppress'] = 'OOF'
+    headers['Auto-Submitted'] = 'auto-generated'
+    headers['From'] = Setting.mail_from
+    headers['List-Id'] = "<#{Setting.mail_from.to_s.gsub('@', '.')}>"
+
+    set_language_if_valid user.language
+    mail :to => user.mail,
+      :from => Setting.mail_from,
+      :subject => Setting.plugin_redmine_issue_reminder['issue_reminder_mail_subject'] || "Issue Reminder"
+  end
 end
