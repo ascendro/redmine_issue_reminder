@@ -22,7 +22,7 @@ namespace :reminder do
     # Fixed: reminder mails are not sent when delivery_method is :async_smtp (#5058).
     ReminderMailer.with_synched_deliveries do
       mail_data.each do |user, queries_data|
-        ReminderMailer.issues_reminder(user, queries_data).deliver
+        ReminderMailer.issues_reminder(user, queries_data).deliver if user.active?
       end
     end
   end
