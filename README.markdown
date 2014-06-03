@@ -99,6 +99,10 @@ Thanks for the contribution.
 
 ## Changelog
 
+### 2014/6/3
+
+ - Inline CSS from site setting, What You See Is What You Get. Require `$ bundle install`
+
 ### 2014/5/23
 
  - Add a way to test by rake command
