@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+<%= stylesheet_link_tag '/stylesheets/application' %>
+<%= stylesheet_link_tag 'application', :media => 'all' %>
 </head>
 <body>
 <% @queries_data.each do |data| %>
@@ -16,13 +18,11 @@
             </tr>
         </thead>
         <tbody>
-        <% data[1].issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version]).each do |issue| %>
-            <tr>
-                <% data[1].columns.each do |column| %>
-                    <%= content_tag 'td', content_for_column(column, issue) %>
-                <% end %>
+        <% issue_list(data[1].issues) do |issue, level| -%>
+            <tr id="issue-<%= issue.id %>" class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
+                <%= raw data[1].columns.map {|column| "<td class=\"#{column.css_classes}\">#{content_for_column(column, issue)}</td>"}.join %>
             </tr>
-        <% end %>
+        <% end -%>
         </tbody>
     </table>
 <% end %>
