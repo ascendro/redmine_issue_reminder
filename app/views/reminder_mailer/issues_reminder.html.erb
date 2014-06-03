@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-        <% issue_list(data[1].issues) do |issue, level| -%>
+        <% data[1].issues(:include => [:assigned_to, :tracker, :priority]).each do |issue, level| -%>
             <tr id="issue-<%= issue.id %>" class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
                 <%= raw data[1].columns.map {|column| "<td class=\"#{column.css_classes}\">#{content_for_column(column, issue)}</td>"}.join %>
             </tr>
