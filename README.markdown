@@ -60,6 +60,12 @@ Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
  
  3. then start the redmine server.
  
+## Testing redminder mail
+
+To send test mail without inverval check:
+
+    rake reminder:exec[test]
+
 ## Troubleshouting
 
 ### How can i customize the queries?
@@ -93,8 +99,11 @@ Thanks for the contribution.
 
 ## Changelog
 
-### 2014/05
+### 2014/5/23
 
+ - Add a way to test by rake command
+ - User can use all queries viviable at redmine page to set reminder.
+ - Fix async_smtp can't
  - Fix compatibility with Redmine 2.5.1
 
 ### 0.0.1
