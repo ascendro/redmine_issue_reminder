@@ -1,7 +1,7 @@
 module RemindersHelper
   def queries_for_options(project_id)
     # Project specific queries and global queries
-    IssueQuery.visible.
+    IssueQuery.visible.order("#{Query.table_name}.name ASC").
       where(project_id.nil? ? ["project_id IS NULL"] : ["project_id IS NULL OR project_id = ?", project_id]).
       collect {|q| [q.name, q.id]}
   end
