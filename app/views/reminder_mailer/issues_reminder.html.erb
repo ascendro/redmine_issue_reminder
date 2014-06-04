@@ -6,23 +6,28 @@
 <%= stylesheet_link_tag 'application', :media => 'all' %>
 </head>
 <body>
-<% @queries_data.each do |data| %>
-    <% data[1].project = data[0] %>
-    <h1><%= "#{data[0].name}: #{data[1].name}"%></h1>
+<% @queries_data.each do |project, query| %>
+    <% query.project = project %> 
+    <% if query.issues(:include => [:assigned_to, :tracker, :priority]).first.nil? %>
+        <% next %>
+    <% end %>
+    <h1><%= "#{project.name}: #{query.name}" %></h1>
     <table class="list issues">
         <thead>
             <tr>
-                <% data[1].columns.each do |col| %>
-                    <th title="<%= col.caption %>"><%= col.caption %></th>
+                <% query.columns.each do |col| %>
+                    <th><%= col.caption %></th>
                 <% end %>
             </tr>
         </thead>
         <tbody>
-        <% data[1].issues(:include => [:assigned_to, :tracker, :priority]).each do |issue, level| -%>
+        <% query.issues(:include => [:assigned_to, :tracker, :priority]).each do |issue| %>
             <tr id="issue-<%= issue.id %>" class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
-                <%= raw data[1].columns.map {|column| "<td class=\"#{column.css_classes}\">#{content_for_column(column, issue)}</td>"}.join %>
+                <%= raw query.columns.map {
+                    |column| "<td class=\"#{column.css_classes}\">#{content_for_column(column, issue)}</td>"
+                }.join %>
             </tr>
-        <% end -%>
+        <% end %>
         </tbody>
     </table>
 <% end %>

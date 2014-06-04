@@ -20,8 +20,7 @@ class ReminderMailer < ActionMailer::Base
   def issues_reminder(user, queries_data)
     @user = user
     @queries_data = queries_data
-    User.current = user  
-    puts "((" + user.mail + "))"
+    User.current = @user
 
     default_url_options[:host] = Setting.host_name
     headers['X-Mailer'] = 'Redmine'
