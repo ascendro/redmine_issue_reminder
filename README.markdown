@@ -97,6 +97,12 @@ You need to have a user password set for your windows user in order to use the w
 
 Thanks for the contribution. 
 
+## To-Do List
+
+- Fix: changing interval type updates interval value @ "New reminder"
+- Fix: cancel button @ "Edit"
+- Fix: load value per reminder @ "Edit"
+
 ## Changelog
 
 ### 2014/6/3
