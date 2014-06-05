@@ -15,7 +15,7 @@ namespace :reminder do
             reject {|m| m.user.nil?}.
             each do |member|
               mail_data[member.user] << [rem.project, rem.query]
-              rem.executed_at = Time.now
+              rem.executed_at = Time.now if args.test != "test"
               rem.save
             end
         end
