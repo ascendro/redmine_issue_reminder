@@ -2,6 +2,8 @@ class ReminderMailer < ActionMailer::Base
   helper :application
   helper :issues
   helper :reminders
+  helper :sort
+  include SortHelper
   include Redmine::I18n
 
   # Fixed: reminder mails are not sent when delivery_method is :async_smtp (#5058).
@@ -18,11 +20,18 @@ class ReminderMailer < ActionMailer::Base
   end
 
   def issues_reminder(user, queries_data)
-    @user = user
-    @queries_data = queries_data
-    User.current = @user
-
-    default_url_options[:host] = Setting.host_name
+    User.current = user
+    @queries_data = []
+    queries_data.each do |project, query|
+      query.project = project
+      sort_init(query.sort_criteria.empty? ? [['id', 'desc']] : query.sort_criteria)
+      @sort_criteria = SortCriteria.new
+      @sort_criteria.available_criteria = query.sortable_columns
+      @sort_criteria.criteria = @sort_default if @sort_criteria.empty?
+      issues = query.issues(:include => [:assigned_to, :tracker, :priority],
+                            :order => sort_clause)
+      @queries_data << [project, query, issues] if issues.any?
+    end
     headers['X-Mailer'] = 'Redmine'
     headers['X-Redmine-Host'] = Setting.host_name
     headers['X-Redmine-Site'] = Setting.app_title

@@ -6,11 +6,7 @@
 <%= stylesheet_link_tag 'application', :media => 'all' %>
 </head>
 <body>
-<% @queries_data.each do |project, query| %>
-    <% query.project = project %> 
-    <% if query.issues(:include => [:assigned_to, :tracker, :priority]).first.nil? %>
-        <% next %>
-    <% end %>
+<% @queries_data.each do |project, query, issues| %>
     <h1><%= "#{project.name}: #{query.name}" %></h1>
     <table class="list issues">
         <thead>
@@ -21,11 +17,11 @@
             </tr>
         </thead>
         <tbody>
-        <% query.issues(:include => [:assigned_to, :tracker, :priority]).each do |issue| %>
+        <% issues.each do |issue| %>
             <tr id="issue-<%= issue.id %>" class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
-                <%= raw query.columns.map {
-                    |column| "<td class=\"#{column.css_classes}\">#{content_for_column(column, issue)}</td>"
-                }.join %>
+                <% query.columns.each do |column| %> 
+                    <td class=\"<%= "#{column.css_classes}" %>\"><%= raw "#{content_for_column(column, issue)}" %></td>
+                <% end %>
             </tr>
         <% end %>
         </tbody>
