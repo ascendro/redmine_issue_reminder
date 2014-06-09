@@ -6,6 +6,12 @@ class ReminderMailer < ActionMailer::Base
   include SortHelper
   include Redmine::I18n
 
+  def self.default_url_options
+    h = Setting.host_name
+    h = h.to_s.gsub(%r{\/.*$}, '') unless Redmine::Utils.relative_url_root.blank?
+    { :host => h, :protocol => Setting.protocol }
+  end
+
   # Fixed: reminder mails are not sent when delivery_method is :async_smtp (#5058).
   def self.with_synched_deliveries(&block)
     saved_method = ActionMailer::Base.delivery_method
