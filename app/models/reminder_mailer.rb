@@ -38,6 +38,14 @@ class ReminderMailer < ActionMailer::Base
                             :order => sort_clause)
       @queries_data << [project, query, issues] if issues.any?
     end
+
+    # Not Sending email if there are no issues
+    if @queries_data.empty?
+      ActionMailer::Base.delivery_method = :test
+    else
+      ActionMailer::Base.delivery_method = :smtp
+    end
+
     headers['X-Mailer'] = 'Redmine'
     headers['X-Redmine-Host'] = Setting.host_name
     headers['X-Redmine-Site'] = Setting.app_title
