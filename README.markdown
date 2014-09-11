@@ -12,6 +12,10 @@ Following intervals are possible:
  - Weekly (Selecting weekday)
  - Monthly (Selecting day of the month)
 
+## Screenshots
+
+![](http://farm7.static.flickr.com/6109/6294745006_49986ec541_b.jpg)
+
 ## Installation - Linux
 
 Download the sources and put them to your vendor/plugins folder.
@@ -122,7 +126,3 @@ Thanks for the contribution.
 
  - initial release
  - matches the basic requirements
- 
-## Screenshots
-
-![](http://farm7.static.flickr.com/6109/6294745006_49986ec541_b.jpg)
