@@ -35,7 +35,7 @@ class RemindersController < ApplicationController
     else
       flash[:error] = t :reminder_not_created
     end
-    render(:update) { |page| page.call 'location.reload' }
+    render :index
   end
 
   def update
