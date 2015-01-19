@@ -50,7 +50,7 @@ class IssueReminder < ActiveRecord::Base
   def self.interval_value_display(interval, value)
     case interval
     when("daily")
-      value = Reminder.daily_intervals[value] if value.is_a? Integer
+      value = IssueReminder.daily_intervals[value] if value.is_a? Integer
       l(value)
     when("weekly")
       value = Date::DAYNAMES[value] if value.is_a? Integer
