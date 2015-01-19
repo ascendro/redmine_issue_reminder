@@ -1,7 +1,7 @@
 class ReminderMailer < ActionMailer::Base
   helper :application
   helper :issues
-  helper :reminders
+  helper :issue_reminders
   helper :sort
   include SortHelper
   include Redmine::I18n
