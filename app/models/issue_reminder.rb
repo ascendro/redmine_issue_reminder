@@ -1,6 +1,6 @@
 require "date"
 
-class Reminder < ActiveRecord::Base
+class IssueReminder < ActiveRecord::Base
   unloadable
 
   WEEKLY_INTERVAS = Date::DAYNAMES

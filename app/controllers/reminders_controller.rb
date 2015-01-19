@@ -1,4 +1,4 @@
-class RemindersController < ApplicationController
+class IssueRemindersController < ApplicationController
   unloadable
 
   before_filter :find_project
@@ -6,20 +6,20 @@ class RemindersController < ApplicationController
 
   def index
     needs_refresh = false
-    @reminders = Reminder.find_all_by_project_id(@project)
+    @reminders = IssueReminder.find_all_by_project_id(@project)
     @reminders.each do |reminder|
       if reminder.query.nil?
         reminder.destroy
         needs_refresh = true
       end
     end
-    @reminders = Reminder.find_all_by_project_id(@project) if needs_refresh
+    @reminders = IssueReminder.find_all_by_project_id(@project) if needs_refresh
     
-    @reminder = Reminder.new
+    @reminder = IssueReminder.new
   end
 
   def create
-    reminder = Reminder.new(params[:reminder])
+    reminder = IssueReminder.new(params[:reminder])
     reminder.interval_value = params[:interval_value].to_i
     if reminder.save
       Role.find_all_givable.each do |role|
@@ -35,11 +35,11 @@ class RemindersController < ApplicationController
     else
       flash[:error] = t :reminder_not_created
     end
-    render :index
+    render(:update) { |page| page.call 'location.reload(true)' }
   end
 
   def update
-    reminder = Reminder.find(params[:id])
+    reminder = IssueReminder.find(params[:id])
     if request.put? && reminder.update_attributes(params[:reminder])
       reminder.interval_value = params[:interval_value]
       Role.find_all_givable.each do |role|
@@ -59,7 +59,7 @@ class RemindersController < ApplicationController
   end
 
   def destroy
-    reminder = Reminder.find(params[:id])
+    reminder = IssueReminder.find(params[:id])
     if reminder
       reminder.destroy
     end
@@ -67,11 +67,11 @@ class RemindersController < ApplicationController
   end
 
   def update_interval_values
-    vals = Reminder.interval_values_for(params[:interval])
+    vals = IssueReminder.interval_values_for(params[:interval])
     begin
-      reminder = Reminder.find(params[:reminder_id])
+      reminder = IssueReminder.find(params[:reminder_id])
     rescue ActiveRecord::RecordNotFound
-      reminder = Reminder.new
+      reminder = IssueReminder.new
     end
     
     render :update do |page|

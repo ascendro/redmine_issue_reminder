@@ -3,7 +3,7 @@ namespace :reminder do
   task :exec, [:test] => :environment do |task, args|
     require 'set'
     mail_data = Hash.new{|h, k| h[k] = Set.new}
-    reminders = Reminder.all
+    reminders = IssueReminder.all
     reminders = reminders.select{|rem| rem.execute?} if args.test != "test"
     reminders.
       select{|rem| rem.project.enabled_module_names.include?('issue_reminder') && rem.query.present?}.

@@ -1,4 +1,4 @@
-module RemindersHelper
+module IssueRemindersHelper
   def queries_for_options(project_id)
     # Project specific queries and global queries
     IssueQuery.visible.order("#{Query.table_name}.name ASC").
