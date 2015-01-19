@@ -32,7 +32,7 @@ Redmine::Plugin.register :redmine_issue_reminder do
    if_proc = Proc.new{|project| project.enabled_module_names.include?('issue_reminder')}
   menu :project_menu,
   :issue_reminder,
-  { :controller => 'issues_reminders', :action => 'index' },
+  { :controller => 'issue_reminders', :action => 'index' },
   :caption => :issues_reminder,
   :last => true,
   #:after => :activity,
