@@ -19,7 +19,7 @@ class IssueRemindersController < ApplicationController
   end
 
   def create
-    reminder = IssueReminder.new(params[:issue_reminder])
+    reminder = IssueReminder.new(params[:reminder])
     reminder.interval_value = params[:interval_value].to_i
     if reminder.save
       Role.find_all_givable.each do |role|
@@ -40,7 +40,7 @@ class IssueRemindersController < ApplicationController
 
   def update
     reminder = IssueReminder.find(params[:id])
-    if request.put? && reminder.update_attributes(params[:issue_reminder])
+    if request.put? && reminder.update_attributes(params[:reminder])
       reminder.interval_value = params[:interval_value]
       Role.find_all_givable.each do |role|
         if reminder.roles.include?(role) && params[role.name.downcase].nil?
@@ -87,7 +87,7 @@ class IssueRemindersController < ApplicationController
     begin
       @project = Project.find(params[:project_id])
     rescue ActiveRecord::RecordNotFound
-      @project = Project.find(params[:issue_reminder][:project_id]) if params[:issue_reminder]
+      @project = Project.find(params[:issue_reminder][:project_id]) if params[:reminder]
     end
   end
 end
