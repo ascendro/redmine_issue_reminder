@@ -25,7 +25,7 @@ class ReminderMailer < ActionMailer::Base
     ActionMailer::Base.delivery_method = saved_method
   end
 
-  def issues_reminder(user, queries_data)
+  def self.issues_reminder(user, queries_data)
     User.current = user
     @queries_data = []
     queries_data.each do |project, query|
