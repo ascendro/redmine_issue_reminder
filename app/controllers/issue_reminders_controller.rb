@@ -87,7 +87,7 @@ class IssueRemindersController < ApplicationController
     begin
       @project = Project.find(params[:project_id])
     rescue ActiveRecord::RecordNotFound
-      @project = Project.find(params[:issue_reminder][:project_id]) if params[:reminder]
+      @project = Project.find(params[:reminder][:project_id]) if params[:reminder]
     end
   end
 end
