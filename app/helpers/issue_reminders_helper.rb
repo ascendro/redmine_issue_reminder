@@ -7,7 +7,7 @@ module IssueRemindersHelper
   end
 
   def reminders_intervals_for_options
-    Reminder.intervals.collect {|i| [l(i).capitalize, i.to_s]}
+    IssueReminder.intervals.collect {|i| [l(i).capitalize, i.to_s]}
   end
 
   def content_for_column(column, issue)
