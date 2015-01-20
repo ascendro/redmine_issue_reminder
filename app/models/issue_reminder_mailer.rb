@@ -25,12 +25,12 @@ class IssueReminderMailer < ActionMailer::Base
     ActionMailer::Base.delivery_method = saved_method
   end
 
-  def self.issues_reminder(user, queries_data)
+  def issues_reminder(user, queries_data)
     User.current = user
     @queries_data = []
     queries_data.each do |project, query|
       query.project = project
-      SortHelper.sort_init(query.sort_criteria.empty? ? [['id', 'desc']] : query.sort_criteria)
+      sort_init(query.sort_criteria.empty? ? [['id', 'desc']] : query.sort_criteria)
       @sort_criteria = SortCriteria.new
       @sort_criteria.available_criteria = query.sortable_columns
       @sort_criteria.criteria = @sort_default if @sort_criteria.empty?
