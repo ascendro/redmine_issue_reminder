@@ -1,4 +1,4 @@
-class ReminderMailer < ActionMailer::Base
+class IssueReminderMailer < ActionMailer::Base
   helper :application
   helper :issues
   helper :issue_reminders
