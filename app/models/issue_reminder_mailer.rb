@@ -30,7 +30,7 @@ class IssueReminderMailer < ActionMailer::Base
     @queries_data = []
     queries_data.each do |project, query|
       query.project = project
-      sort_init(query.sort_criteria.empty? ? [['id', 'desc']] : query.sort_criteria)
+      SortHelper.sort_init(query.sort_criteria.empty? ? [['id', 'desc']] : query.sort_criteria)
       @sort_criteria = SortCriteria.new
       @sort_criteria.available_criteria = query.sortable_columns
       @sort_criteria.criteria = @sort_default if @sort_criteria.empty?
