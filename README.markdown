@@ -74,6 +74,10 @@ To send test mail without inverval check:
 
     rake reminder:exec[test]
 
+ `rake reminder:exec[test]` is supposed to have exactly the same behavior as `rake reminder:exec` except two things :
+* it does always send emails (no matter when the last execution was)
+* it does not update the last execution date
+
 ## Troubleshouting
 
 ### How can i customize the queries?
