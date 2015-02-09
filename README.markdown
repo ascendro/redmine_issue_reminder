@@ -22,24 +22,49 @@ Following intervals are possible:
 
 Download the sources and put them to your vendor/plugins folder.
 
-    $ cd {REDMINE_ROOT}/plugins
-    $ git clone https://github.com/Hopebaytech/redmine_issue_reminder.git
+```console
+$ cd {REDMINE_ROOT}/plugins
+$ git clone https://github.com/Hopebaytech/redmine_issue_reminder.git
+```
 
 Install required gem for plugin
 
-    $ bundle install
+```console
+$ bundle install
+```
 
-Migrate database.
+Install plugin and update DB
 
-    $ rake db:migrate:plugins
+```console
+$ rake redmine:plugins:migrate
+```
 
 (See also http://www.redmine.org/projects/redmine/wiki/Plugins )    
 
 For the periodical transmission a daily cron job has to be created:
-      
-    $ sudo crontab -e
-    0 6 * * * cd {REDMINE_ROOT} && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
-    
+
+If you use system ruby:
+
+```console
+$ sudo crontab -e
+0 6 * * * cd {REDMINE_ROOT} && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
+```
+
+If you use RVM:
+```console 
+$ sudo crontab -e
+0 6 * * * {REDMINE_ROOT}/script/mail_reminder.sh > /dev/null 2>&1
+```
+
+```console 
+$ vim {REDMINE_ROOT}/script/mail_reminder.sh
+#!/bin/bash
+source {USER_HOME}/.rvm/scripts/rvm
+export PATH="$PATH:{USER_HOME}/.rvm/bin"
+cd {REDMINE_ROOT}
+rake reminder:exec RAILS_ENV=production
+```
+
 Restart Redmine
 
 Run Redmine and have a fun!
@@ -53,16 +78,12 @@ Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
  
  1. Write a bat file such as these
 
- ########################################
- 
- echo on
- 
- cd {REDMINE_ROOT}
- 
- rake reminder:exec RAILS_ENV="production"
- 
- ########################################
- 
+```bat
+echo on
+cd {REDMINE_ROOT}
+rake reminder:exec RAILS_ENV="production"
+```
+
  2. config a schedule just follow this
  http://www.iopus.com/guides/winscheduler.htm
  
@@ -72,11 +93,16 @@ Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
 
 To send test mail without inverval check:
 
-    rake reminder:exec[test]
+```console
+rake reminder:exec[test]
+```
 
  `rake reminder:exec[test]` is supposed to have exactly the same behavior as `rake reminder:exec` except two things :
+ 
 * it does always send emails (no matter when the last execution was)
 * it does not update the last execution date
+
+The behavior of `rake reminder:exec` is to send email only if it is time to send a new email, regarding the interval parameters and the `rake reminder:exec[test]` is supposed to send email each times it is executed with a non empty body.
 
 ## Troubleshouting
 
@@ -114,6 +140,7 @@ Thanks for the contribution.
 - Fix: changing interval type updates interval value @ "New reminder"
 - Fix: cancel button @ "Edit"
 - Fix: load value per reminder @ "Edit"
+- Feature: `rake reminder:exec[reset_scheduler]`
 
 ## Changelog
 
