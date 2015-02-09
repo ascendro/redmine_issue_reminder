@@ -75,7 +75,7 @@ class IssueRemindersController < ApplicationController
     end
     
     render :update do |page|
-      page.replace_html "interval_values-#{params[:reminder_id]}",
+      page.replace_html "interval_values-#{params[:issue_reminder_id]}",
       :partial => 'interval_values',
       :locals => { :possible_values => vals, :selected_value => nil, :reminder => reminder}
     end
