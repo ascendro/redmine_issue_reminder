@@ -34,7 +34,7 @@ class IssueReminderMailer < ActionMailer::Base
       @sort_criteria = SortCriteria.new
       @sort_criteria.available_criteria = query.sortable_columns
       @sort_criteria.criteria = @sort_default if @sort_criteria.empty?
-      issues = query.issues(:include => [:assigned_to, :tracker, :priority],
+      issues = query.issues(:include => [:assigned_to, :tracker, :priority, :category, :fixed_version],
                             :order => sort_clause)
       @queries_data << [project, query, issues] if issues.any?
     end
