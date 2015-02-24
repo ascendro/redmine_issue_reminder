@@ -68,11 +68,6 @@ rake reminder:exec RAILS_ENV=production
 
 Restart Redmine
 
-Run Redmine and have a fun!
-
-The reminder functionality can be activated in each project as module and can be configured through the project menu entry "Reminder Settings".
-A special right needs to be configured in order to allow project member to edit reminder.
-
 ## Installation - Windows
 
 Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
@@ -89,6 +84,14 @@ rake reminder:exec RAILS_ENV="production"
  http://www.iopus.com/guides/winscheduler.htm
  
  3. then start the redmine server.
+
+## Configuration
+
+1. The reminder functionality can be activated in each project as module and can be configured through the project menu entry "Reminder Settings".
+
+2. A special right needs to be configured through "Administration -> Roles and permissions" in order to allow project member to edit reminder.
+
+3. Have a fun!
  
 ## Testing redminder mail
 
