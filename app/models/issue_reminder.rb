@@ -1,6 +1,7 @@
 require "date"
 
 class IssueReminder < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   unloadable
 
   WEEKLY_INTERVAS = Date::DAYNAMES
@@ -102,4 +103,6 @@ class IssueReminder < ActiveRecord::Base
       return Time.now.mday == interval_value
     end
   end
+
+  attr_accessible :project_id, :query_id, :interval
 end

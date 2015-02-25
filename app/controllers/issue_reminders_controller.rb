@@ -6,20 +6,22 @@ class IssueRemindersController < ApplicationController
 
   def index
     needs_refresh = false
-    @reminders = IssueReminder.find_all_by_project_id(@project)
+    @reminders = IssueReminder.where(project_id: @project)
     @reminders.each do |reminder|
       if reminder.query.nil?
         reminder.destroy
         needs_refresh = true
       end
     end
-    @reminders = IssueReminder.find_all_by_project_id(@project) if needs_refresh
+    @reminders = IssueReminder.where(project_id: @project) if needs_refresh
     
     @reminder = IssueReminder.new
   end
 
   def create
     reminder = IssueReminder.new(params[:reminder])
+    parameters = ActionController::Parameters.new(params[:reminder])
+    reminder = IssueReminder.new(parameters.permit(:project_id, :query_id, :interval))
     reminder.interval_value = params[:interval_value].to_i
     if reminder.save
       Role.find_all_givable.each do |role|

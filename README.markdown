@@ -3,7 +3,7 @@
 
 [![Join the chat at https://gitter.im/Hopebaytech/redmine_issue_reminder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hopebaytech/redmine_issue_reminder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Compatible with redmine 2.6.1.stable
+Compatible with redmine 3.0 (Developing on master branch)
 
 Plugin provides an easy to use interface to set up automatic email reminder to every project. 
 Every reminder uses a custom query with all their filter options to select issues 
