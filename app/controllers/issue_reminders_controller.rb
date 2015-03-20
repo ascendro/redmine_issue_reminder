@@ -20,6 +20,7 @@ class IssueRemindersController < ApplicationController
 
   def create
     reminder = IssueReminder.new(params[:reminder])
+    reminder = IssueReminder.new(parameters.permit(:project_id, :query_id, :interval))
     reminder.interval_value = params[:interval_value].to_i
     if reminder.save
       Role.find_all_givable.each do |role|
