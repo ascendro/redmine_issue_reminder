@@ -19,7 +19,6 @@ class IssueRemindersController < ApplicationController
   end
 
   def create
-    reminder = IssueReminder.new(params[:reminder])
     parameters = ActionController::Parameters.new(params[:reminder])
     reminder = IssueReminder.new(parameters.permit(:project_id, :query_id, :interval))
     reminder.interval_value = params[:interval_value].to_i
