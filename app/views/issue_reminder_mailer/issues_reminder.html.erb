@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+<% headers[:skip_premailer] = nil if headers[:skip_premailer] %>
 <%= stylesheet_link_tag '/stylesheets/application' %>
 <%= stylesheet_link_tag 'application', :media => 'all' %>
 </head>

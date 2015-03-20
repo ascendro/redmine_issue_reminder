@@ -12,6 +12,8 @@ ActionDispatch::Callbacks.to_prepare do
     require 'boards_watchers_patches'
 end
 
+ActionMailer::Base.default :skip_premailer => true
+
 Redmine::Plugin.register :redmine_issue_reminder do
   name 'Redmine Issue Reminder plugin'
   author 'Ascendro S.R.L'
