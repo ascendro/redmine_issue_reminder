@@ -14,13 +14,14 @@ end
 
 ActionMailer::Base.default :skip_premailer => true
 
+require 'premailer_ext/file_system_loader_extensions'
+
 Redmine::Plugin.register :redmine_issue_reminder do
   name 'Redmine Issue Reminder plugin'
-  author 'Ascendro S.R.L'
-  description 'Issue reminder plugin for Redmine'
-  version '0.0.1'
-  url 'https://github.com/ascendro/redmine_issue_reminder'
-  author_url 'http://www.ascendro.ro/'
+  author 'Ascendro S.R.L, Jethro'
+  description 'Issue reminder plugin for Redmine, based on Ascendro\'s version https://github.com/ascendro/redmine_issue_reminde'
+  version '3.0.0'
+  url 'https://github.com/Hopebaytech/redmine_issue_reminder'
 
   permission :view_issue_reminder, :issue_reminders => :index
 
