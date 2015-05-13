@@ -1,7 +1,7 @@
-class IssueReminderMailer < ActionMailer::Base
+class MailReminderMailer < ActionMailer::Base
   helper :application
   helper :issues
-  helper :issue_reminders
+  helper :mail_reminders
   helper :sort
   include SortHelper
   include Redmine::I18n
@@ -57,6 +57,6 @@ class IssueReminderMailer < ActionMailer::Base
     set_language_if_valid user.language
     mail :to => user.mail,
       :from => Setting.mail_from,
-      :subject => Setting.plugin_redmine_issue_reminder['issue_reminder_mail_subject'] || "Issue Reminder"
+      :subject => Setting.plugin_redmine_mail_reminder['issue_reminder_mail_subject'] || "Issue Reminder"
   end
 end

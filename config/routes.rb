@@ -1,4 +1,4 @@
-  resources :issue_reminders do
+  resources :mail_reminders do
     post 'update_interval_values', :on => :collection
   end
 
