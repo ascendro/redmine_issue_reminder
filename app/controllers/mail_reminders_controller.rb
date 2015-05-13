@@ -1,4 +1,4 @@
-class IssueRemindersController < ApplicationController
+class MailRemindersController < ApplicationController
   unloadable
 
   before_filter :find_project
@@ -6,27 +6,26 @@ class IssueRemindersController < ApplicationController
 
   def index
     needs_refresh = false
-    @reminders = IssueReminder.where(project_id: @project)
+    @reminders = MailReminder.where(project_id: @project)
     @reminders.each do |reminder|
       if reminder.query.nil?
         reminder.destroy
         needs_refresh = true
       end
     end
-    @reminders = IssueReminder.where(project_id: @project) if needs_refresh
-    
-    @reminder = IssueReminder.new
+    @reminders = MailReminder.where(project_id: @project) if needs_refresh
+    @reminder = MailReminder.new
   end
 
   def create
     parameters = ActionController::Parameters.new(params[:reminder])
-    reminder = IssueReminder.new(parameters.permit(:project_id, :query_id, :interval))
+    reminder = MailReminder.new(parameters.permit(:project_id, :query_id, :interval))
     reminder.interval_value = params[:interval_value].to_i
     if reminder.save
       Role.find_all_givable.each do |role|
         if params[role.name.downcase]
           rr = ReminderRole.new
-          rr.issue_reminder = reminder
+          rr.mail_reminder = reminder
           rr.role = role
           rr.save
         end
@@ -40,7 +39,7 @@ class IssueRemindersController < ApplicationController
   end
 
   def update
-    reminder = IssueReminder.find(params[:id])
+    reminder = MailReminder.find(params[:id])
     if request.put? && reminder.update_attributes(params[:reminder])
       reminder.interval_value = params[:interval_value]
       Role.find_all_givable.each do |role|
@@ -48,7 +47,7 @@ class IssueRemindersController < ApplicationController
           reminder.reminder_roles.find_by_role_id(role.id).destroy
         elsif params[role.name.downcase] && !reminder.roles.include?(role)
           rr = ReminderRole.new
-          rr.issue_reminder = reminder
+          rr.mail_reminder = reminder
           rr.role = role
           rr.save
         end
@@ -60,7 +59,7 @@ class IssueRemindersController < ApplicationController
   end
 
   def destroy
-    reminder = IssueReminder.find(params[:id])
+    reminder = MailReminder.find(params[:id])
     if reminder
       reminder.destroy
     end
@@ -68,15 +67,15 @@ class IssueRemindersController < ApplicationController
   end
 
   def update_interval_values
-    vals = IssueReminder.interval_values_for(params[:interval])
+    vals = MailReminder.interval_values_for(params[:interval])
     begin
-      reminder = IssueReminder.find(params[:issue_reminder_id])
+      reminder = MailReminder.find(params[:mail_reminder_id])
     rescue ActiveRecord::RecordNotFound
-      reminder = IssueReminder.new
+      reminder = MailReminder.new
     end
     
     render :update do |page|
-      page.replace_html "interval_values-#{params[:issue_reminder_id]}",
+      page.replace_html "interval_values-#{params[:mail_reminder_id]}",
       :partial => 'interval_values',
       :locals => { :possible_values => vals, :selected_value => nil, :reminder => reminder}
     end

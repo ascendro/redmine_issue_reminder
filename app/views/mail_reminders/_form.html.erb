@@ -7,11 +7,11 @@
   <p>
     <%= f.label l(:interval) %>:
     <%= f.select :interval, reminders_intervals_for_options,:data => {:remote => true, :url  => {:action => "update_interval_values"},
-              :with => "'interval='+value +'&issue_reminder_id=#{reminder.new_record? ? 'new' : reminder.id}'"}  
+              :with => "'interval='+value +'&mail_reminder_id=#{reminder.new_record? ? 'new' : reminder.id}'"}
     %>
   </p>
     <%= render :partial => 'interval_values',
-               :locals => { :possible_values => IssueReminder.interval_values_for(reminder.new_record? ? :daily : reminder.interval),
+               :locals => { :possible_values => MailReminder.interval_values_for(reminder.new_record? ? :daily : reminder.interval),
                             :selected_value => reminder.interval_value,
                             :reminder => reminder } %>
     <p>

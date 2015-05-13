@@ -1,6 +1,6 @@
 require "date"
 
-class IssueReminder < ActiveRecord::Base
+class MailReminder < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   unloadable
 
@@ -51,7 +51,7 @@ class IssueReminder < ActiveRecord::Base
   def self.interval_value_display(interval, value)
     case interval
     when("daily")
-      value = IssueReminder.daily_intervals[value] if value.is_a? Integer
+      value = MailReminder.daily_intervals[value] if value.is_a? Integer
       l(value)
     when("weekly")
       value = Date::DAYNAMES[value] if value.is_a? Integer

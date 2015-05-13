@@ -1,4 +1,4 @@
-module IssueRemindersHelper
+module MailRemindersHelper
   def queries_for_options(project_id)
     # Project specific queries and global queries
     IssueQuery.visible.order("#{Query.table_name}.name ASC").
@@ -7,7 +7,7 @@ module IssueRemindersHelper
   end
 
   def reminders_intervals_for_options
-    IssueReminder.intervals.collect {|i| [l(i).capitalize, i.to_s]}
+    MailReminder.intervals.collect {|i| [l(i).capitalize, i.to_s]}
   end
 
   def content_for_column(column, issue)
