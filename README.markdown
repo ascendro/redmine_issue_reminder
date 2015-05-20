@@ -5,7 +5,7 @@ Redmine Issue Reminder
 
 [Plugin page on redmine.org](http://www.redmine.org/plugins/redmine_mail_reminder)
 
-Compatible with redmine 3.0 (Developing on master branch)
+Compatible with redmine 3.0, 2.6, 2.5, 2.0 (on branch master, redmine2.6, redmine2.5, redmine2.0 respectively)
 
 Plugin provides an easy to use interface to set up automatic email reminder to every project. 
 Every reminder uses a custom query with all their filter options to select issues 
@@ -25,116 +25,76 @@ Following intervals are possible:
 
 At 2015/05/13 (2.6/3.0 Branch) this plugin is renamed from redmine_issue_reminder to redmine_mail_reminder, in order to avoid conflict with [existed redmine_issue_reminder](http://www.redmine.org/plugins/redmine_issue_reminder).
 
-1. rename your redmine_issue_reminder directory ({REDMINE_ROOT}/plugins/redmine_issue_reminder) to redmine_mail_reminder
+* Rename your redmine_issue_reminder directory (redmine/plugins/redmine_issue_reminder) to redmine_mail_reminder
 
-2. connect to your redmine's SQL database
+* Connect to your redmine's SQL database, run the following SQL script
+	```sql
+	update schema_migrations set version=replace(version, 'redmine_issue_reminder', 'redmine_mail_reminder') where version like '%redmine_issue_reminder%';
+	update settings set name=replace(name, 'issue', 'mail') where name =  'plugin_redmine_issue_reminder';
+	```
 
-3. run the following SQL script
+* Pull new version source from github
 
-    ```sql
-    update schema_migrations set version=replace(version, 'redmine_issue_reminder', 'redmine_mail_reminder') where version like '%redmine_issue_reminder%';
-    ```
-4. run the following SQL script 
-
-    ```sql
-    update settings set name=replace(name, 'issue', 'mail') where name =  'plugin_redmine_issue_reminder';
-    ```
-5. pull new version source from github
-6. run the following rake
-
-    ```script
-    rake redmine:plugins:migrate NAME=redmine_mail_reminder
-    ```
-7. restart your web server (usually /etc/init.d/apache2 restart)
+* Install dependencies and migrate database
+	```console
+	cd redmine/
+	bundle install
+	RAILS_ENV=production rake redmine:plugins:migrate
+	```
+7. Restart your web server (usually /etc/init.d/apache2 restart)
 
 ## Installation - Linux
 
-Download the sources and put them to your vendor/plugins folder.
+* Clone this repository into ```redmine/plugins/redmine_mail_reminder```
+* Install dependencies and migrate database
+	```console
+	cd redmine/
+	bundle install
+	RAILS_ENV=production rake redmine:plugins:migrate
+	```
 
-```console
-$ cd {REDMINE_ROOT}/plugins
-$ git clone https://github.com/Hopebaytech/redmine_mail_reminder.git
-```
+* Setup cronjob for daily transmission. RVM users see [Using RVM with Cron](https://rvm.io/deployment/cron).
+	```
+	crontab -e
+	# Send emails at 06:00 every day
+	0 6 * * * cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
+	# Or, Send emails at 08:30 on work days 1-6
+	30 8 * * 1-6 cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
+	```
 
-Install required gem for plugin
-
-```console
-$ bundle install
-```
-
-Install plugin and update DB
-
-```console
-$ rake redmine:plugins:migrate
-```
-
-(See also http://www.redmine.org/projects/redmine/wiki/Plugins )    
-
-For the periodical transmission a daily cron job has to be created:
-
-If you use system ruby:
-
-```console
-$ sudo crontab -e
-0 6 * * * cd {REDMINE_ROOT} && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
-```
-
-If you use RVM:
-```console 
-$ sudo crontab -e
-0 6 * * * {REDMINE_ROOT}/script/mail_reminder.sh > /dev/null 2>&1
-```
-
-```console 
-$ vim {REDMINE_ROOT}/script/mail_reminder.sh
-#!/bin/bash
-source {USER_HOME}/.rvm/scripts/rvm
-export PATH="$PATH:{USER_HOME}/.rvm/bin"
-cd {REDMINE_ROOT}
-rake reminder:exec RAILS_ENV=production
-```
-
-Restart Redmine
+* Restart your Redmine web server (e.g. mongrel, thin, mod_rails)
 
 ## Installation - Windows
 
 Enviroment : Winxp + Redmine 1.2.X + Mysql 5.X
  
- 1. Write a bat file such as these
+* Write a bat file such as these
+	```bat
+	echo on
+	cd redmine\
+	rake reminder:exec RAILS_ENV="production"
+	```
 
-```bat
-echo on
-cd {REDMINE_ROOT}
-rake reminder:exec RAILS_ENV="production"
-```
-
- 2. config a schedule just follow this
- http://www.iopus.com/guides/winscheduler.htm
- 
- 3. then start the redmine server.
+* Config a schedule following  http://www.iopus.com/guides/winscheduler.htm
+* Restart redmine server.
 
 ## Configuration
 
-1. The reminder functionality can be activated in each project as module and can be configured through the project menu entry "Reminder Settings".
-
-2. A special right needs to be configured through "Administration -> Roles and permissions" in order to allow project member to edit reminder.
-
-3. Have a fun!
+* Active `Issue reminder` module in project settings
+* Configure `View issue reminder` in "Administration > Roles and permissions"
+* Create a [custom query](http://www.redmine.org/projects/redmine/wiki/RedmineIssueList#Custom-queries) of what you want to send in email.
+* Create reminder with custom query in "Project > Issues Reminder"
  
 ## Testing redminder mail
 
-To send test mail without inverval check:
+Send test mail without affecting inverval of schedule
 
-```console
-rake reminder:exec[test]
-```
+```rake reminder:exec[test] RAILS_ENV="production"```
 
- `rake reminder:exec[test]` is supposed to have exactly the same behavior as `rake reminder:exec` except two things :
- 
-* it does always send emails (no matter when the last execution was)
-* it does not update the last execution date
-
-The behavior of `rake reminder:exec` is to send email only if it is time to send a new email, regarding the interval parameters and the `rake reminder:exec[test]` is supposed to send email each times it is executed with a non empty body.
+* The behavior of `rake reminder:exec` is to send email only if it is time to send a new email, regarding the interval parameters. If you execute `rake reminder:exec` manually, it will affact next scheduled transmission.
+* `rake reminder:exec[test]` is supposed to have exactly the same behavior as `rake reminder:exec`, except two things:
+	* It does always send emails to issue assignees (no matter when the last execution was)
+	* It does not affecting the next schedule of `rake reminder:exec`.
 
 ## Troubleshouting
 
@@ -154,9 +114,7 @@ has to be set in config/emai.yml or config/configuration.yml
 
 ### I can not use the windows scheduler (WinXP related)
 
-You need to have a user password set for your windows user in order to use the windows scheduler.
-
-(See also here: http://technet.microsoft.com/en-us/library/cc785125(WS.10).aspx )
+You need to have a user password set for your windows user in order to use the windows scheduler. See also here: http://technet.microsoft.com/en-us/library/cc785125(WS.10).aspx 
 
 ## Translations
 
