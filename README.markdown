@@ -56,9 +56,9 @@ At 2015/05/13 (2.6/3.0 Branch) this plugin is renamed from redmine_issue_reminde
 * Setup cronjob for daily transmission. RVM users see [Using RVM with Cron](https://rvm.io/deployment/cron).
 	```
 	crontab -e
-	# Send emails at 06:00 every day
+	# Check reminders at 06:00 every day, send emails by schedule
 	0 6 * * * cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
-	# Or, Send emails at 08:30 on work days 1-6
+	# Or, Check reminders at 08:30 on work days 1-6, send emails by schedule
 	30 8 * * 1-6 cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
 	```
 
