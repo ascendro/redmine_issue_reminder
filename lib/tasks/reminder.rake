@@ -2,11 +2,25 @@ namespace :reminder do
   desc "Executes all reminders that fulfill time conditions."
   task :exec, [:test] => :environment do |task, args|
     require 'set'
+    require 'colorize'
     mail_data = Hash.new{|h, k| h[k] = Set.new}
-    reminders = MailReminder.all
-    reminders = reminders.select{|rem| rem.execute?} if args.test != "test"
+    reminders = MailReminder.select do |rem|
+      next(false) until rem.project.enabled_module_names.include?('issue_reminder')
+      next(false) until rem.query.present?
+      print "Project \"#{ rem.project.name }\" with query \"#{ rem.query.name }\" "
+      if args.test == "test"
+        puts "\t is forced processing under [test] mode.".yellow
+        next(true)
+      end
+      if rem.execute?
+        puts "\t is processing.".light_blue
+        next(true)
+      else
+        puts "\t is ignored. It's executed recently and too early for next execution.".red
+        next(false)
+      end
+    end
     reminders.
-      select{|rem| rem.project.enabled_module_names.include?('issue_reminder') && rem.query.present?}.
       sort{|l,r| l.project_id <=> r.project_id}.
       each do |rem|
         rem.roles.each do |role|
