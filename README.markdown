@@ -60,9 +60,9 @@ At 2015/05/13 (2.6/3.0 Branch) this plugin is renamed from redmine_issue_reminde
 	```
 	crontab -e
 	# Check reminders at 06:00 every day, send emails by schedule
-	0 6 * * * cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
+	0 6 * * * cd redmine/ && rake reminder:exec RAILS_ENV="production"
 	# Or, Check reminders at 08:30 on work days 1-6, send emails by schedule
-	30 8 * * 1-6 cd redmine/ && rake reminder:exec RAILS_ENV="production" > /dev/null 2>&1
+	30 8 * * 1-6 cd redmine/ && rake reminder:exec RAILS_ENV="production"
 	```
 
 * Restart your Redmine web server (e.g. mongrel, thin, mod_rails)
