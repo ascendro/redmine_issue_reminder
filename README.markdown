@@ -3,8 +3,6 @@ Redmine Issue Reminder
 
 [![Join the chat at https://gitter.im/Hopebaytech/redmine_mail_reminder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hopebaytech/redmine_mail_reminder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/Hopebaytech/redmine_issue_reminder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hopebaytech/redmine_issue_reminder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [Plugin page on redmine.org](http://www.redmine.org/plugins/redmine_mail_reminder)
 
 Compatible with redmine 3.0, 2.6, 2.5, 2.0 (on branch master, redmine2.6, redmine2.5, redmine2.0 respectively)
