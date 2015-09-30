@@ -19,7 +19,6 @@ Following intervals are possible:
 ## Screenshots
 
 ![image](http://farm7.static.flickr.com/6109/6294745006_49986ec541_b.jpg)
-![image](https://lh3.googleusercontent.com/-A-s0giWSvvk/VNiFf7PnSfI/AAAAAAAACHI/6DA5JDDmF2U/s2048/2015-02-09%25252018_01_30-2015-02-09%25252017_52_56-Redmine%252520Issue%252520Reminder%252520-%252520jethro.yu%252540happygorgi.com%252520-%252520%2525E5%252592%25258C%2525E6%2525B2%25259B%2525E7%2525A7%252591%2525E6%25258A%252580%2525E8%252582%2525A1%2525E4%2525BB%2525BD%2525E6%25259C%252589%2525E9%252599%252590.png)
 ![image](https://cloud.githubusercontent.com/assets/84070/7959114/ceb99b22-0a28-11e5-94f9-f4169423d0cf.png)
 ![image](https://cloud.githubusercontent.com/assets/84070/7959130/f794f6cc-0a28-11e5-93c9-16d56ca9c6ea.png)
 
@@ -100,6 +99,11 @@ Send test mail without affecting inverval of schedule
 	* It does not affecting the next schedule of `rake reminder:exec`.
 
 ## Troubleshouting
+
+Make sure that:
+
+1. You are using the branch which matches your redmine version. e.g. redmine2.0/redmine2.5/redmine2.6/master for lastest version
+2. This plugin folder's name is redmine_**mail**_reminder
 
 ### How can i customize the queries?
 
