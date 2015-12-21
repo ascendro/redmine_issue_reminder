@@ -5,19 +5,21 @@ namespace :reminder do
     require 'colorize'
     mail_data = Hash.new{|h, k| h[k] = Set.new}
     reminders = MailReminder.select do |rem|
-      next(false) until rem.project.enabled_module_names.include?('issue_reminder')
-      next(false) until rem.query.present?
-      print "Project \"#{ rem.project.name }\" with query \"#{ rem.query.name }\" "
-      if args.test == "test"
-        puts "\t is forced processing under [test] mode.".yellow
-        next(true)
-      end
-      if rem.execute?
-        puts "\t is processing.".light_blue
-        next(true)
-      else
-        puts "\t is ignored. It's executed recently and too early for next execution.".red
-        next(false)
+      if rem.project
+        next(false) until rem.project.enabled_module_names.include?('issue_reminder')
+        next(false) until rem.query.present?
+        print "Project \"#{ rem.project.name }\" with query \"#{ rem.query.name }\" "
+        if args.test == "test"
+          puts "\t is forced processing under [test] mode.".yellow
+          next(true)
+        end
+        if rem.execute?
+          puts "\t is processing.".light_blue
+          next(true)
+        else
+          puts "\t is ignored. It's executed recently and too early for next execution.".red
+          next(false)
+        end
       end
     end
     reminders.
