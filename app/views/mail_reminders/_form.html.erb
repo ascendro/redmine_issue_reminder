@@ -27,6 +27,6 @@
     <%= f.submit reminder.new_record? ? l(:add) : l(:save) %>
 
     <% unless reminder.new_record? %>
-      <%= link_to_function l(:button_cancel), "$('reminder-#{reminder.id}-edit').hide(); return false;" %></p>
+      <%= link_to_function l(:button_cancel), "$('#reminder-#{reminder.id}-edit').hide()" %></p>
     <% end %>
 <% end %>
