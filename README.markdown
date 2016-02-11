@@ -63,7 +63,19 @@ At 2015/05/13 (2.6/3.0 Branch) this plugin is renamed from redmine_issue_reminde
 	# Or, Check reminders at 08:30 on work days 1-6, send emails by schedule
 	30 8 * * 1-6 cd redmine/ && rake reminder:exec RAILS_ENV="production"
 	```
-
+CentOS users can make a file /etc/cron.d/redmine
+	```
+	SHELL=/bin/bash
+	PATH=/sbin:/bin:/usr/sbin:/usr/bin
+	MAILTO=root
+	HOME=/
+	#check reminders at 06:00 every day, send emails by schedule
+	0 6 * * * root cd /var/lib/redmine && /usr/local/bin/rake reminder:exec RAILS_ENV="production" >> 	/var/lib/redmine/log/production.log 2>&1
+	```
+and restart cron with 
+	```
+	/etc/init.d/crond restart
+	```
 * Restart your Redmine web server (e.g. mongrel, thin, mod_rails)
 
 ## Installation - Windows
@@ -104,6 +116,7 @@ Make sure that:
 
 1. You are using the branch which matches your redmine version. e.g. redmine2.0/redmine2.5/redmine2.6/master for lastest version
 2. This plugin folder's name is redmine_**mail**_reminder
+3. Your cron job executes without errors
 
 ### How can i customize the queries?
 
