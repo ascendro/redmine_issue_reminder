@@ -42,8 +42,6 @@ class MailReminderMailer < ActionMailer::Base
     # Not Sending email if there are no issues
     if @queries_data.empty?
       ActionMailer::Base.delivery_method = :test
-    else
-      ActionMailer::Base.delivery_method = :smtp
     end
 
     headers['X-Mailer'] = 'Redmine'
