@@ -40,6 +40,7 @@ class MailReminderMailer < ActionMailer::Base
     end
 
     # Not Sending email if there are no issues
+    original_delivery_method = ActionMailer::Base.delivery_method
     if @queries_data.empty?
       ActionMailer::Base.delivery_method = :test
     end
@@ -56,5 +57,6 @@ class MailReminderMailer < ActionMailer::Base
     mail :to => user.mail,
       :from => Setting.mail_from,
       :subject => Setting.plugin_redmine_mail_reminder['issue_reminder_mail_subject'] || "Issue Reminder"
+    ActionMailer::Base.delivery_method = original_delivery_method
   end
 end
