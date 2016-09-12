@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Hopebaytech/redmine_mail_reminder.png?label=ready&title=Ready)](https://waffle.io/Hopebaytech/redmine_mail_reminder)
 Redmine Issue Reminder
 ==============
 
