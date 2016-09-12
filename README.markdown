@@ -1,8 +1,8 @@
 [![Stories in Ready](https://badge.waffle.io/Hopebaytech/redmine_mail_reminder.png?label=ready&title=Ready)](https://waffle.io/Hopebaytech/redmine_mail_reminder)
+[![Join the chat at https://gitter.im/Hopebaytech/redmine_mail_reminder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hopebaytech/redmine_mail_reminder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Redmine Issue Reminder
 ==============
-
-[![Join the chat at https://gitter.im/Hopebaytech/redmine_mail_reminder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hopebaytech/redmine_mail_reminder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [Plugin page on redmine.org](http://www.redmine.org/plugins/redmine_mail_reminder)
 
