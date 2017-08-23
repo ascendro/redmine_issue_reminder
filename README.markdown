@@ -8,6 +8,7 @@ Redmine Issue Reminder
 [Plugin page on redmine.org](http://www.redmine.org/plugins/redmine_mail_reminder)
 
 Compatible with redmine 3.3, 3.2
+
 redmine 3.4 is not tested yet.
 
 Plugin provides an easy to use interface to set up automatic email reminder to every project. 
