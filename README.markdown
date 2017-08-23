@@ -7,7 +7,8 @@ Redmine Issue Reminder
 
 [Plugin page on redmine.org](http://www.redmine.org/plugins/redmine_mail_reminder)
 
-Compatible with redmine 3.3, 3.0, 2.6, 2.5, 2.0 (on branch master, master, redmine2.6, redmine2.5, redmine2.0 respectively)
+Compatible with redmine 3.3, 3.2
+redmine 3.4 is not tested yet.
 
 Plugin provides an easy to use interface to set up automatic email reminder to every project. 
 Every reminder uses a custom query with all their filter options to select issues 
