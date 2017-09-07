@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+<% headers[:skip_premailer] = nil if headers[:skip_premailer] %>
+<%= stylesheet_link_tag '/stylesheets/application', 'jquery/jquery-ui-1.11.0', 'application', :media => 'all' %>
+</head>
+<body>
+<% @queries_data.each do |project, query, issues| %>
+    <h1><%= "#{project.name}: #{query.name}" %></h1>
+    <table class="list issues">
+        <thead>
+            <tr>
+                <% query.columns.each do |col| %>
+                    <th><%= col.caption %></th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+        <% issues.each do |issue| %>
+            <tr id="issue-<%= issue.id %>" class="<%= cycle('odd', 'even') %> <%= issue.css_classes %>">
+                <% query.columns.each do |column| %> 
+                    <td class=\"<%= "#{column.css_classes}" %>\"><%= raw "#{content_for_column(column, issue)}" %></td>
+                <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+<% end %>
+</body>
+</html>

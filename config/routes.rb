@@ -1,3 +1,5 @@
-ActionController::Routing::Routes.draw do |map|
-  map.connect 'reminders/:action/:id', :controller => 'reminders'
-end
+  resources :mail_reminders do
+    post 'update_interval_values', :on => :collection
+  end
+
+  resources :query
